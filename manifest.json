@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "TIme TRACKER",
+  "version": "1.0",
+  "description": "TIme TRACKER.",
+
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "storage",
+    "webNavigation",
+    "contextMenus",
+    "notifications",
+    "scripting",
+    "http://localhost/*",
+    "webRequest",
+    "webRequestBlocking",
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess",
+    "notifications"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js", "bootstrap.min.js"]
+    }
+  ],
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Decept Sense",
+    "default_icon": {
+      "16": "letter-d.png",
+      "32": "chronometer.png",
+      "128": "clock.png"
+    }
+  },
+  "icons": {
+    "32": "letter-d-32.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["personalized.html", "login.html"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
