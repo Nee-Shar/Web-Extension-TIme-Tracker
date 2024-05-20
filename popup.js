@@ -22,7 +22,7 @@ document.getElementById("signUp").addEventListener("click", function (e) {
   };
 
   // Send the POST request
-  fetch("http://localhost:8000/add_user", {
+  fetch("https://outstanding-mackerel-nee-shar-963708c8.koyeb.app/add_user", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -55,13 +55,16 @@ document.getElementById("login").addEventListener("click", function (e) {
     Email: email,
     Pssd: password,
   };
-  fetch("http://localhost:8000/is_user_authentic", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userData),
-  })
+  fetch(
+    "https://outstanding-mackerel-nee-shar-963708c8.koyeb.app/is_user_authentic",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    }
+  )
     .then((response) => {
       if (!response.ok) {
         // If the response is not ok, throw an error with the status text

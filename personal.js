@@ -8,7 +8,7 @@ function fetchRestrictedSitesData(userId) {
     updateRestrictedSitesList(restrictedSites);
   } else {
     // If data is not present, fetch it from the API
-    fetch(`http://localhost:8000/get_restricted_sites/${userId}`)
+    fetch(`https://outstanding-mackerel-nee-shar-963708c8.koyeb.app/get_restricted_sites/${userId}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch restricted sites data");
@@ -100,7 +100,7 @@ document.getElementById("addToRestricted").addEventListener("click", () => {
     Res_Site: site_Name,
     Allowed_Time: time,
   };
-  fetch("http://localhost:8000/add_restricted_site", {
+  fetch("https://outstanding-mackerel-nee-shar-963708c8.koyeb.app/add_restricted_site", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -123,7 +123,7 @@ document.getElementById("addToRestricted").addEventListener("click", () => {
 });
 
 function fetchTop3Data(userId) {
-  fetch(`http://localhost:8000/top3sites/${userId}`)
+  fetch(`https://outstanding-mackerel-nee-shar-963708c8.koyeb.app/top3sites/${userId}`)
     .then((response) => response.json())
     .then((data) => {
       localStorage.setItem("top3Data", JSON.stringify(data));
@@ -267,7 +267,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Send the data to the backend
-        fetch("http://localhost:8000/add_site_data_batch", {
+        fetch("https://outstanding-mackerel-nee-shar-963708c8.koyeb.app/add_site_data_batch", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

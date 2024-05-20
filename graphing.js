@@ -13,7 +13,7 @@ $(document).ready(function () {
   async function fetchDailyData() {
     try {
       const response = await fetch(
-        `http://localhost:8000/allDataForToday/${userId}`
+        `https://outstanding-mackerel-nee-shar-963708c8.koyeb.app/allDataForToday/${userId}`
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -75,7 +75,7 @@ $(document).ready(function () {
 
     try {
       const response = await fetch(
-        `http://localhost:8000/monthlyData/${userId}`
+        `https://outstanding-mackerel-nee-shar-963708c8.koyeb.app/monthlyData/${userId}`
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -164,7 +164,7 @@ $(document).ready(function () {
 async function fetchUsageData(userId) {
   try {
     const response = await fetch(
-      `http://localhost:8000/all_time_data/${userId}`
+      `https://outstanding-mackerel-nee-shar-963708c8.koyeb.app/all_time_data/${userId}`
     );
     if (!response.ok) {
       throw new Error("Network response was not ok");
