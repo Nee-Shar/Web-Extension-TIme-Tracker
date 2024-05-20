@@ -20,10 +20,10 @@ Watch the demo video [here](https://drive.google.com/file/d/1RoTf148fFrKcU4RD4si
 
 
 ## Backend Deployed at:
-[here](https://outstanding-mackerel-nee-shar-963708c8.koyeb.app/).
+[💻](https://outstanding-mackerel-nee-shar-963708c8.koyeb.app/).
 
 ## Database Deployed at:
-[here](www.freesqldatabase.com).
+[🏬](www.freesqldatabase.com).
 
 ## Installation
 
