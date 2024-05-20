@@ -188,3 +188,25 @@ def monthlyData(user_id: str):
     result = cursor.fetchall()
     cursor.close()
     return result
+@app.get("/all_time_data/{user_id}")
+def allTimeData(user_id: str):
+    cursor = Db.cursor(dictionary=True)
+    
+    # Query to calculate the number of days and total time spent by the user
+    query = "SELECT DATEDIFF(CURDATE(), MIN(datee)) AS Days, SUM(Time_Spend) AS total_time FROM Viewing_Time_Data WHERE user_id = %s GROUP BY user_id"
+    cursor.execute(query, (user_id,))
+    result = cursor.fetchone()
+    
+    # Fetch the site name with the maximum time spent for the given user
+    max_time_query = "SELECT Site_Name FROM Viewing_Time_Data WHERE user_id = %s AND Time_Spend = (SELECT MAX(Time_Spend) FROM Viewing_Time_Data WHERE user_id = %s)"
+    cursor.execute(max_time_query, (user_id, user_id))
+    max_time_result = cursor.fetchone()
+    
+    cursor.close()
+    
+    # Return the data as a dictionary
+    return {
+        "Days": result["Days"],
+        "total_time": result["total_time"],
+        "max_time_site": max_time_result["Site_Name"]
+    }

@@ -22,6 +22,18 @@
         <img src="metrics-animate.svg" class=" img-fluid" height="350px" width="350px">
 
     </div>
+    <div class="text-center">
+        <h3 class="kalam-bold">Usage Time Statistics</h3>
+        <button id="seeStats" class="my-btn-2" id="seeStats">See Stats</button>
+
+        <ul class="list-group" style="visibility: hidden;" id="myList">
+            <li class="list-group-item">Total Time Spent: <span id="totalTimeSpent" class="kalam-bold"></span></li>
+            <li class="list-group-item">Average Time Spent Per day: <span id="averageTimeSpent"
+                    class="kalam-bold"></span></li>
+            <li class="list-group-item">Most Visited Website: <span id="mostVisitedWebsite" class="kalam-bold"></span>
+            </li>
+        </ul>
+    </div>
 
     <div class="text-center mt-4">
         <h3 class="kalam-bold">Today's Time Spending</h3><canvas id="timeSpentChart"></canvas>

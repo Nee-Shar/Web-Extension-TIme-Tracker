@@ -1,6 +1,14 @@
 $(document).ready(function () {
   const userId = localStorage.getItem("UID"); // Replace with dynamic user ID if necessary
 
+  // if (userId) {
+  //   fetchUsageData(userId).then((data) => {
+  //     if (data && data.length > 0) {
+  //       displayStatisticsMetrics(data);
+  //     }
+  //   });
+  // }
+
   // Fetch daily data from the endpoint
   async function fetchDailyData() {
     try {
@@ -151,4 +159,43 @@ $(document).ready(function () {
   document.getElementById("goBack").addEventListener("click", () => {
     window.location.href = "personalized.html";
   });
+});
+
+async function fetchUsageData(userId) {
+  try {
+    const response = await fetch(
+      `http://localhost:8000/all_time_data/${userId}`
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    displayStatisticsMetrics(data);
+    console.log("DONE");
+    return data;
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+  }
+}
+
+function displayStatisticsMetrics(data) {
+  const days = data.Days;
+  const totalOverallTime = data.total_time;
+  const averageTimePerDay = totalOverallTime / (days + 1); // Calculate average time per day
+  console.log(data.Days, data.total_time, totalOverallTime, averageTimePerDay);
+  // Display metrics in HTML elements
+  document.getElementById("totalTimeSpent").textContent =
+    totalOverallTime + " seconds";
+  document.getElementById("averageTimeSpent").textContent =
+    averageTimePerDay.toFixed(2) + " seconds"; // Round to 2 decimal places
+  document.getElementById("mostVisitedWebsite").textContent = data.max_time_site;  
+}
+
+document.getElementById("seeStats").addEventListener("click", () => {
+  const userId = localStorage.getItem("UID"); // Replace with dynamic user ID if necessary
+  document.getElementById("myList").style.visibility = "visible";
+
+  if (userId) {
+    fetchUsageData(userId);
+  }
 });
