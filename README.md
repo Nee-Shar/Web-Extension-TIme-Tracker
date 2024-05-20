@@ -64,6 +64,11 @@ Contributions are welcome! Please create an issue or submit a pull request.
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for more details.
 
+## DATABASE SCHEMA:
+
+
+![Screenshot 2024-05-21 024423](https://github.com/Nee-Shar/Web-Extension-TIme-Tracker/assets/99169026/645b9209-b761-43b4-90aa-7602909d795b)
+
 
 Some Screenshots:
 
