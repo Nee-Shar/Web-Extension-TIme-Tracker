@@ -59,6 +59,13 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for more 
 
 
 Some Screenshots:
+
+
+
+
+
+
+
 ![Screenshot 2024-05-21 012834](https://github.com/Nee-Shar/Web-Extension-TIme-Tracker/assets/99169026/ecdf9d47-1ed9-4db2-965a-5b421bd3eacc)
 
 
