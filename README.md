@@ -40,6 +40,7 @@ Watch the demo video [here](https://drive.google.com/file/d/1RoTf148fFrKcU4RD4si
 
 4. **Database Setup**:
    - Ensure MySQL server is running.
+   - You may enter your own credentials for MySQL or use pre existing (the pre existing ones are deployed on free sql server so read/write speed is slow ).
    - Create the required database and tables as per application needs.
 
 ## Usage
@@ -55,3 +56,46 @@ Contributions are welcome! Please create an issue or submit a pull request.
 ## License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for more details.
+
+
+Some Screenshots:
+
+
+
+
+
+
+
+![Screenshot 2024-05-21 012834](https://github.com/Nee-Shar/Web-Extension-TIme-Tracker/assets/99169026/ecdf9d47-1ed9-4db2-965a-5b421bd3eacc)
+
+
+
+![Screenshot 2024-05-21 012625](https://github.com/Nee-Shar/Web-Extension-TIme-Tracker/assets/99169026/cd75a964-7c5a-436b-9fe7-668ded89cfc9)
+
+
+
+![Screenshot 2024-05-21 012855](https://github.com/Nee-Shar/Web-Extension-TIme-Tracker/assets/99169026/f8424ff2-c9c4-4837-aa2a-cc8ab7afbd7f)
+
+
+
+![Screenshot 2024-05-21 012912](https://github.com/Nee-Shar/Web-Extension-TIme-Tracker/assets/99169026/70e3e354-37d4-48fd-a4a4-340d1600db76)
+
+
+
+
+![Screenshot 2024-05-21 012923](https://github.com/Nee-Shar/Web-Extension-TIme-Tracker/assets/99169026/9234ad36-8a15-4f52-b2d5-b1accf9bba4d)
+
+
+
+
+![Screenshot 2024-05-21 012936](https://github.com/Nee-Shar/Web-Extension-TIme-Tracker/assets/99169026/00f1f9f1-4781-4f49-8b81-7ace006d2038)
+
+
+
+![Screenshot 2024-05-21 012947](https://github.com/Nee-Shar/Web-Extension-TIme-Tracker/assets/99169026/bc5f554e-21e5-49ee-949d-919a7ed01a32)
+
+
+
+
+
+![Screenshot 2024-05-21 013000](https://github.com/Nee-Shar/Web-Extension-TIme-Tracker/assets/99169026/f93878fb-a256-4ab2-bca2-54507faee0ec)
