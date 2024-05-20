@@ -18,6 +18,13 @@ The Web Time Tracker Extension is a powerful tool for managing your online activ
 
 Watch the demo video [here](https://drive.google.com/file/d/1RoTf148fFrKcU4RD4si78mWKmsvOoXXe/view?usp=sharing).
 
+
+## Backend Deployed at:
+[here](https://outstanding-mackerel-nee-shar-963708c8.koyeb.app/).
+
+## Database Deployed at:
+[here](www.freesqldatabase.com).
+
 ## Installation
 
 1. **Download ZIP**: Download the project ZIP file and extract it.
