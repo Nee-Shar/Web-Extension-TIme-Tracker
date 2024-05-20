@@ -41,10 +41,10 @@ class Site_Data(BaseModel):
      total_time:int
 
 Db=mysql.connector.connect(
-host="localhost",
-user="root",
-password="1234",
-database="neeraj"
+host=" sql12.freesqldatabase.com",
+user="sql12707762",
+password="DBZEra9T1x",
+database="sql12707762"
 )
 
 
