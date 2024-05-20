@@ -30,13 +30,13 @@
     "default_popup": "popup.html",
     "default_title": "Decept Sense",
     "default_icon": {
-      "16": "letter-d.png",
+      "16": "chronometer-16.png",
       "32": "chronometer.png",
-      "128": "clock.png"
+      "128": "chronometer-128.png"
     }
   },
   "icons": {
-    "32": "letter-d-32.png"
+    "32": "chronometer.png"
   },
   "web_accessible_resources": [
     {

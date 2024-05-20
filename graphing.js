@@ -4,7 +4,9 @@ $(document).ready(function () {
   // Fetch daily data from the endpoint
   async function fetchDailyData() {
     try {
-      const response = await fetch(`http://localhost:8000/allDataForToday/${userId}`);
+      const response = await fetch(
+        `http://localhost:8000/allDataForToday/${userId}`
+      );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -64,7 +66,9 @@ $(document).ready(function () {
     }
 
     try {
-      const response = await fetch(`http://localhost:8000/monthlyData/${userId}`);
+      const response = await fetch(
+        `http://localhost:8000/monthlyData/${userId}`
+      );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -92,21 +96,22 @@ $(document).ready(function () {
             label: "Time Spent (seconds)",
             data: times,
             backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(153, 102, 255, 0.2)",
-              "rgba(255, 159, 64, 0.2)",
+              "rgba(100, 0, 0, 0.3)", // Dark red with 20% opacity
+              "rgba(0, 100, 0, 0.3)", // Dark green with 20% opacity
+              "rgba(255, 206, 86, 0.3)", // Normal yellow with 20% opacity
+              "rgba(75, 192, 192, 0.3)", // Normal cyan with 20% opacity
+              "rgba(153, 102, 255, 0.3)", // Normal purple with 20% opacity
+              "rgba(255, 159, 64, 0.3)", // Normal orange with 20% opacity
             ],
             borderColor: [
-              "rgba(255, 99, 132, 1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)",
-              "rgba(153, 102, 255, 1)",
-              "rgba(255, 159, 64, 1)",
+              "rgba(100, 0, 0, 1)", // Dark red
+              "rgba(0, 100, 0, 1)", // Dark green
+              "rgba(255, 206, 86, 1)", // Normal yellow
+              "rgba(75, 192, 192, 1)", // Normal cyan
+              "rgba(153, 102, 255, 1)", // Normal purple
+              "rgba(255, 159, 64, 1)", // Normal orange
             ],
+
             borderWidth: 1,
           },
         ],

@@ -93,3 +93,7 @@ document.getElementById("login").addEventListener("click", function (e) {
 if (localStorage.getItem("UID")) {
   window.location.href = "personalized.html";
 }
+
+document.getElementById("tipsPage").addEventListener("click", function () {
+  window.location.href = "tips.html";
+});

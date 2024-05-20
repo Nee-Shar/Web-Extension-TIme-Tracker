@@ -171,6 +171,13 @@ function formatTime(timeInSeconds) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  const notification = document.getElementById("notification");
+  notification.style.display = "block";
+
+  // Hide the notification after 3 seconds
+  setTimeout(() => {
+    notification.style.display = "none";
+  }, 3000);
   const userId = localStorage.getItem("UID");
   fetchRestrictedSitesData(userId);
 
@@ -322,4 +329,8 @@ document.getElementById("limitPage").addEventListener("click", function () {
 
 document.getElementById("letsGraph").addEventListener("click", function () {
   window.location.href = "Visualization.html";
+});
+
+document.getElementById("tipsPage").addEventListener("click", function () {
+  window.location.href = "tips.html";
 });

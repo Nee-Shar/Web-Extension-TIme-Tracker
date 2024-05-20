@@ -35,7 +35,7 @@ WHERE id NOT IN (
 );
 
 select * from viewing_time_data;
-
+select * from restricted2;
 SELECT Site_Name, Time_Spend as total_time FROM Viewing_Time_Data WHERE user_id="d5d446dcfb73470895ec"  AND datee ="2024-05-19";
 
 select * from viewing_time_data where datee="2024-05-19";
