@@ -40,6 +40,7 @@ Watch the demo video [here](https://drive.google.com/file/d/1RoTf148fFrKcU4RD4si
 
 4. **Database Setup**:
    - Ensure MySQL server is running.
+   - You may enter your own credentials for MySQL or use pre existing (the pre existing ones are deployed on free sql server so read/write speed is slow ).
    - Create the required database and tables as per application needs.
 
 ## Usage
