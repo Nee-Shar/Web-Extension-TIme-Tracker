@@ -112,11 +112,11 @@ def add_site_data(site_data:Viewing_Data):
         Db.commit()
         cursor.close()
         return {"message":"Data Added Successfully"}   
+
 @app.post("/add_site_data_batch")
 def add_site_data_batch(site_data_list: List[Viewing_Data]):
     cursor = Db.cursor()
-    current_date = datetime.now().date()
-    current_date = "2024-05-19"
+    current_date = datetime.now().strftime('%Y-%m-%d')
     try:
         for site_data in site_data_list:
             # Delete any existing records for the same site, date, and user ID
@@ -178,10 +178,13 @@ def allDataForToday(user_id:str):
      return result
 
 @app.get("/monthlyData/{user_id}")
-def monthlyData(user_id:str):
-     cursor=Db.cursor(dictionary=True)
-     current_month = datetime.now().month
-     cursor.execute("SELECT Site_Name, Time_Spend as total_time FROM Viewing_Time_Data WHERE user_id = %s AND MONTH(datee) = %s " ,(user_id,current_month))
-     result=cursor.fetchall()
-     cursor.close()
-     return result
+def monthlyData(user_id: str):
+    cursor = Db.cursor(dictionary=True)
+    current_month = datetime.now().strftime('%m')  # Formats the month as a two-digit string, e.g., '05' for May
+    cursor.execute(
+        "SELECT Site_Name, Time_Spend as total_time FROM Viewing_Time_Data WHERE user_id = %s AND DATE_FORMAT(datee, '%m') = %s",
+        (user_id, current_month)
+    )
+    result = cursor.fetchall()
+    cursor.close()
+    return result

@@ -39,10 +39,11 @@ function isValidURL(givenURL) {
 }
 
 let isTracking = false;
-
+let currentUser = null;
 // Message listener for handling button clicks from popup.js
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   if (message.action === "startTracking") {
+    currentUser = message.userId;
     console.log(Date.now());
     startTracking();
   } else if (message.action === "stopTracking") {
@@ -133,63 +134,91 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   }
 });
 
+// function updateTime() {
+//   if (isTracking) {
+//     chrome.tabs.query(
+//       { active: true, lastFocusedWindow: true },
+//       function (activeTab) {
+//         let domain = getDomain(activeTab);
+//         if (isValidURL(domain)) {
+//           let today = new Date();
+//           let presentDate = getDateString(today);
+//           let myObj = {};
+//           myObj[presentDate] = {};
+//           myObj[presentDate][domain] = "";
+//           let timeSoFar = 0;
+//           chrome.storage.local.get(presentDate, function (storedObject) {
+//             if (storedObject[presentDate]) {
+//               if (storedObject[presentDate][domain]) {
+//                 timeSoFar = storedObject[presentDate][domain] + 1;
+//                 storedObject[presentDate][domain] = timeSoFar;
+//                 chrome.storage.local.set(storedObject, function () {
+//                   console.log(
+//                     "Set " + domain + " at " + storedObject[presentDate][domain]
+//                   );
+//                   chrome.browserAction.setBadgeText({
+//                     text: timeSoFar,
+//                   });
+//                 });
+//               } else {
+//                 timeSoFar++;
+//                 storedObject[presentDate][domain] = timeSoFar;
+//                 chrome.storage.local.set(storedObject, function () {
+//                   console.log(
+//                     "Set " + domain + " at " + storedObject[presentDate][domain]
+//                   );
+//                   chrome.browserAction.setBadgeText({
+//                     text: timeSoFar,
+//                   });
+//                 });
+//               }
+//             } else {
+//               timeSoFar++;
+//               storedObject[presentDate] = {};
+//               storedObject[presentDate][domain] = timeSoFar;
+//               chrome.storage.local.set(storedObject, function () {
+//                 console.log(
+//                   "Set " + domain + " at " + storedObject[presentDate][domain]
+//                 );
+//                 chrome.browserAction.setBadgeText({
+//                   text: timeSoFar,
+//                 });
+//               });
+//             }
+//           });
+//         } else {
+//           chrome.browserAction.setBadgeText({ text: "" });
+//         }
+//       }
+//     );
+//   }
+// }
+
 function updateTime() {
   if (isTracking) {
-    chrome.tabs.query(
-      { active: true, lastFocusedWindow: true },
-      function (activeTab) {
-        let domain = getDomain(activeTab);
-        if (isValidURL(domain)) {
-          let today = new Date();
-          let presentDate = getDateString(today);
-          let myObj = {};
-          myObj[presentDate] = {};
-          myObj[presentDate][domain] = "";
-          let timeSoFar = 0;
-          chrome.storage.local.get(presentDate, function (storedObject) {
-            if (storedObject[presentDate]) {
-              if (storedObject[presentDate][domain]) {
-                timeSoFar = storedObject[presentDate][domain] + 1;
-                storedObject[presentDate][domain] = timeSoFar;
-                chrome.storage.local.set(storedObject, function () {
-                  console.log(
-                    "Set " + domain + " at " + storedObject[presentDate][domain]
-                  );
-                  chrome.browserAction.setBadgeText({
-                    text: timeSoFar,
-                  });
-                });
-              } else {
-                timeSoFar++;
-                storedObject[presentDate][domain] = timeSoFar;
-                chrome.storage.local.set(storedObject, function () {
-                  console.log(
-                    "Set " + domain + " at " + storedObject[presentDate][domain]
-                  );
-                  chrome.browserAction.setBadgeText({
-                    text: timeSoFar,
-                  });
-                });
-              }
-            } else {
-              timeSoFar++;
-              storedObject[presentDate] = {};
-              storedObject[presentDate][domain] = timeSoFar;
-              chrome.storage.local.set(storedObject, function () {
-                console.log(
-                  "Set " + domain + " at " + storedObject[presentDate][domain]
-                );
-                chrome.browserAction.setBadgeText({
-                  text: timeSoFar,
-                });
-              });
-            }
+    chrome.tabs.query({ active: true, lastFocusedWindow: true }, function (activeTab) {
+      let domain = getDomain(activeTab);
+      if (isValidURL(domain) && currentUser) {
+        let today = new Date();
+        let presentDate = getDateString(today);
+        chrome.storage.local.get([currentUser], function (result) {
+          let userData = result[currentUser] || {};
+          let dateData = userData[presentDate] || {};
+          dateData[domain] = (dateData[domain] || 0) + 1;
+          userData[presentDate] = dateData;
+          chrome.storage.local.set({ [currentUser]: userData }, function () {
+            console.log(
+              "Set " + domain + " for user " + currentUser + " at " + dateData[domain]
+            );
+            chrome.browserAction.setBadgeText({
+              text: String(dateData[domain]),
+            });
           });
-        } else {
-          chrome.browserAction.setBadgeText({ text: "" });
-        }
+        });
+      } else {
+        chrome.browserAction.setBadgeText({ text: "" });
       }
-    );
+    });
   }
 }
 

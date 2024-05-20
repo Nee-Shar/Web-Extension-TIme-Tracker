@@ -220,6 +220,7 @@ document.getElementById("logOut").addEventListener("click", function () {
   localStorage.removeItem("UID");
   localStorage.removeItem("top3Data");
   localStorage.removeItem("restrictedSites");
+  localStorage.removeItem("monthlyData");
   chrome.runtime.sendMessage({
     type: "deLimitAll",
   });
@@ -233,38 +234,32 @@ document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("startTracking")
     .addEventListener("click", function () {
-      chrome.runtime.sendMessage({ action: "startTracking" });
+      chrome.runtime.sendMessage({
+        action: "startTracking",
+        userId: Unique_id,
+      });
     });
 
   // Event listener for stop tracking button
+  // Console data saved by background.js after tracking stopped
   document
     .getElementById("stopTracking")
     .addEventListener("click", function () {
       chrome.runtime.sendMessage({ action: "stopTracking" });
-
-      //console data saved by background.js after tracking stoppped
-      var allKeys, timeSpent, totalTimeSpent, sortedTimeList, topCount;
-      totalTimeSpent = 0;
       var today = getDateString(new Date());
-      chrome.storage.local.get(today, function (storedItems) {
-        allKeys = Object.keys(storedItems[today]);
-        timeSpent = [];
-        sortedTimeList = [];
-        for (let i = 0; i < allKeys.length; i++) {
-          let webURL = allKeys[i];
-          timeSpent.push(storedItems[today][webURL]);
-          totalTimeSpent += storedItems[today][webURL];
-          sortedTimeList.push([webURL, storedItems[today][webURL]]);
+      chrome.storage.local.get([Unique_id], function (result) {
+        let userData = result[Unique_id] || {};
+        let dateData = userData[today] || {};
+        let siteDataList = [];
+        for (let key in dateData) {
+          siteDataList.push({
+            Site_Name: key,
+            Time_Spend: dateData[key],
+            user_id: Unique_id,
+          });
         }
-        sortedTimeList.sort((a, b) => b[1] - a[1]);
-        console.log(sortedTimeList);
-        //make this req for whole sortedTimeList array
 
-        const siteDataList = sortedTimeList.map((site) => ({
-          Site_Name: site[0],
-          Time_Spend: parseInt(site[1]),
-          user_id: localStorage.getItem("UID"),
-        }));
+        // Send the data to the backend
         fetch("http://localhost:8000/add_site_data_batch", {
           method: "POST",
           headers: {
@@ -275,8 +270,8 @@ document.addEventListener("DOMContentLoaded", function () {
           .then((response) => response.json())
           .then((data) => {
             // Handle the response
-            fetchTop3Data(localStorage.getItem("UID"));
-            fetchRestrictedSitesData(localStorage.getItem("UID"));
+            fetchTop3Data(Unique_id);
+            fetchRestrictedSitesData(Unique_id);
             console.log(data.message); // Log the message received from the server
           })
           .catch((error) => {
@@ -284,43 +279,9 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Error:", error);
             // You can add more error handling here, such as displaying an error message to the user
           });
-        // sortedTimeList.forEach((site) => {
-        //   var site_data = {
-        //     Site_Name: site[0],
-        //     Time_Spend: parseInt(site[1]),
-        //     user_id: localStorage.getItem("UID"),
-        //   };
-        //   console.log("HOLA" + JSON.stringify(site_data));
-        //   fetch("http://localhost:8000/add_site_data", {
-        //     method: "POST",
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(site_data),
-        //   })
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //       // Handle the response
-
-        //       fetchTop3Data(localStorage.getItem("UID"));
-        //       fetchRestrictedSitesData(localStorage.getItem("UID"));
-        //       console.log(data.message); // Log the message received from the server
-        //     })
-        //     .catch((error) => {
-        //       // Handle any errors that occur during the fetch operation
-        //       console.error("Error:", error);
-        //       // You can add more error handling here, such as displaying an error message to the user
-        //     });
-        // });
-
-        //(2) ['twitter.com', 7]
-
-        topCount = allKeys.length > 10 ? 10 : allKeys.length;
-        console.log(topCount);
       });
     });
 });
-
 //console data saved by background.js after tracking stoppped
 
 function secondsToString(seconds, compressed = false) {

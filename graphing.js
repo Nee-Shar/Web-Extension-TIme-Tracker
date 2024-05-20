@@ -3,19 +3,16 @@ $(document).ready(function () {
 
   // Fetch daily data from the endpoint
   async function fetchDailyData() {
-    return fetch(`http://localhost:8000/allDataForToday/${userId}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error("There was a problem with the fetch operation:", error);
-      });
+    try {
+      const response = await fetch(`http://localhost:8000/allDataForToday/${userId}`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+    }
   }
 
   // Process the fetched daily data and prepare it for visualization
@@ -59,21 +56,24 @@ $(document).ready(function () {
     });
   }
 
-  // Fetch monthly data from the endpoint
+  // Fetch monthly data from the endpoint or local storage
   async function fetchMonthlyData() {
-    return fetch(`http://localhost:8000/monthlyData/${userId}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        return data;
-      })
-      .catch((error) => {
-        console.error("There was a problem with the fetch operation:", error);
-      });
+    const localStorageData = localStorage.getItem("monthlyData");
+    if (localStorageData) {
+      return JSON.parse(localStorageData);
+    }
+
+    try {
+      const response = await fetch(`http://localhost:8000/monthlyData/${userId}`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      localStorage.setItem("monthlyData", JSON.stringify(data));
+      return data;
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+    }
   }
 
   // Process the fetched monthly data and prepare it for visualization
@@ -81,7 +81,7 @@ $(document).ready(function () {
     const labels = data.map((entry) => entry.Site_Name);
     const times = data.map((entry) => entry.total_time);
 
-    //   // Create the pie chart
+    // Create the pie chart
     const ctx = document.getElementById("monthlyPieChart").getContext("2d");
     new Chart(ctx, {
       type: "pie",
@@ -126,18 +126,20 @@ $(document).ready(function () {
     });
   }
 
-  // Fetch and visualize the daily data
+  // Fetch and visualize the daily data on page load
   fetchDailyData().then((data) => {
     if (data) {
       processAndVisualizeDailyData(data);
     }
   });
 
-  // Fetch and visualize the monthly data
-  fetchMonthlyData().then((data) => {
-    if (data) {
-      processAndVisualizeMonthlyData(data);
-    }
+  // Event listener for the "Fetch Monthly Data" button
+  document.getElementById("fetchMonthlyData").addEventListener("click", () => {
+    fetchMonthlyData().then((data) => {
+      if (data) {
+        processAndVisualizeMonthlyData(data);
+      }
+    });
   });
 
   // Event listener for the "Go Back" button

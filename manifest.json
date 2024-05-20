@@ -12,9 +12,6 @@
     "contextMenus",
     "notifications",
     "scripting",
-    "http://localhost/*",
-    "webRequest",
-    "webRequestBlocking",
     "declarativeNetRequest",
     "declarativeNetRequestWithHostAccess",
     "notifications"
