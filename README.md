@@ -39,6 +39,7 @@ Watch the demo video [here](https://drive.google.com/file/d/1RoTf148fFrKcU4RD4si
      ```bash
      uvicorn app:app --reload
      ```
+     Due to using free cloud hosting it might not be available 24*7 so its better to deploy the server locally by following above steps.
 
 3. **Extension Setup**:
    - Open your web browser and go to the extensions page.
